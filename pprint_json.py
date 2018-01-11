@@ -4,15 +4,15 @@ import sys
 
 
 def read_json_filenames_from_args():
-    file_path = []
+    path_files = []
     try:
-        for path in sys.argv[1:]:
-            if os.path.exists(path):
-                file_path.append(path)
+        for path_to_json in sys.argv[1:]:
+            if os.path.exists(path_to_json):
+                path_files.append(path_to_json)
             else:
-                print("Файл {} не найден".format(path))
-        if file_path:
-            return file_path
+                print("Файл {} не найден".format(path_to_json ))
+        if path_files:
+            return path_files
         else:
             print("Не найден не один файл")
             return None
@@ -23,10 +23,10 @@ def read_json_filenames_from_args():
 def load_json_from_file(filepath):
     with open(filepath, 'r', encoding='utf-8') as f:
         try:
-            json_data = json.loads(f.read())
+            data = json.loads(f.read())
         except json.decoder.JSONDecodeError:
-            json_data = None
-    return json_data
+            data = None
+    return data
 
 
 def pretty_print_json(data):
@@ -34,12 +34,12 @@ def pretty_print_json(data):
 
 
 if __name__ == '__main__':
-    path_files = read_json_filenames_from_args()
-    if path_files:
-        for path in path_files:
-            json_data = load_json_from_file(path)
-        if json_data:
-            pretty_print_json(json_data)
-        else:
-            print("Файл {} некоретный".format(path))
+    file_paths = read_json_filenames_from_args()
+    if file_paths:
+        for file_path in file_paths:
+            data = load_json_from_file(file_path)
+            if data:
+                pretty_print_json(data)
+            else:
+                print("Файл {} некоретный".format(file_path))
     print("Программа завершена.")
