@@ -29,17 +29,17 @@ def load_json_from_file(filepath):
     return data
 
 
-def pretty_print_json(data):
-    print(json.dumps(data, indent=4, sort_keys=True, ensure_ascii=False))
+def pretty_print_json(data_json):
+    print(json.dumps(data_json, indent=4, sort_keys=True, ensure_ascii=False))
 
 
 if __name__ == '__main__':
     file_paths = read_json_filenames_from_args()
     if file_paths:
         for file_path in file_paths:
-            data = load_json_from_file(file_path)
-            if data:
-                pretty_print_json(data)
+            data_json = load_json_from_file(file_path)
+            if data_json:
+                pretty_print_json(data_json)
             else:
                 print("Файл {} некоретный".format(file_path))
     print("Программа завершена.")
